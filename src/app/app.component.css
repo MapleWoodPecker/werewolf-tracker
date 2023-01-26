@@ -1,0 +1,23 @@
+.toolbar{
+    display: flex;
+    height: fit-content;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: auto;
+    justify-content: center;
+}
+
+#main-content{
+    margin: auto;
+    width: 80%;
+}
+
+#intro-paragraph{
+    margin: auto;
+    width: 50%;
+    font-size: large;
+    font-style: italic;
+    line-height: 1.5;
+    text-align: center;
+}

@@ -1,0 +1,10 @@
+<h1 style="text-align: center;">{{locationMessage}}</h1>    
+
+<div *ngIf="!locationDenial; else elseBlock">
+    <button (click)="getLocation()">Give location</button>
+</div>
+<ng-template #elseBlock>
+    <p style="text-align: center; margin: auto; width: 80%;">Unfortunately, you'll have to go in your browser settings if you wish to re-enable them:</p>
+    <a href="{{permsSupportUrl}}">{{permsSupportText}}</a>
+
+</ng-template>
