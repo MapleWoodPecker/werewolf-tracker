@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { withInMemoryScrolling } from '@angular/router';
+import { Router } from '@angular/router';
 import { Platform } from '@angular/cdk/platform';
 
 
@@ -10,31 +10,56 @@ import { Platform } from '@angular/cdk/platform';
 })
 export class GeolocationComponent {
 
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform, private router: Router) {
 
   }
 
   locationMessage: string = "First, we'll need to know where you are.";
 
+  buttonMessage: string = "Give location";
+  refreshMsg: string = "";
   locationDenied: boolean = false;
-  locationApproved: boolean = false;
 
   permsSupportUrl?: string;
   permsBrowserText: string = "blank";
 
   engineIsBlink: boolean = false;
 
+  ngOnInit(): void {
+    //check if the coordinates are already in the session storage
+    if (sessionStorage.getItem('user_lat') && sessionStorage.getItem('user_long')) {
+      //convert them to int and give them to the locationGiven function
+      this.locationGiven();
+    }
+  }
+  
+
   askLocation() {
-    navigator.geolocation.getCurrentPosition(
-      () => this.locationGiven(),
-      () => this.locationRefused(),
-      { timeout: 10000 })
+    //check if cooridnates are already in the session storage
+    if (sessionStorage.getItem('user_lat') && sessionStorage.getItem('user_long')) {
+      this.seeForecast();
+    }
+    else {
+      navigator.geolocation.getCurrentPosition((position) => {
+            sessionStorage.setItem('user_lat', position.coords.latitude.toString());
+            sessionStorage.setItem('user_long', position.coords.longitude.toString());
+            this.locationGiven()},
+        () => this.locationRefused(),
+        { timeout: 10000 })
+    }
+  }
+
+  seeForecast(){
+    this.router.navigate(['/forecast']);
   }
 
   locationGiven() {
-    this.locationMessage = "Thank you.";
-    this.locationApproved = true;
+    this.locationDenied = false;
+    this.locationMessage = "Coordinates loaded";
     console.log('User allowed location');
+    this.buttonMessage = "Display forecast";
+    this.refreshMsg = "If you changed you location, click here";
+    
   }
 
   locationRefused() {
@@ -44,7 +69,19 @@ export class GeolocationComponent {
     console.log('User refused location');
   }
 
+  clearLocation() {
+    console.log('Clearing location');
+    sessionStorage.removeItem('user_lat');
+    sessionStorage.removeItem('user_long');
+    this.locationMessage = "First, we'll need to know where you are.";
+    this.buttonMessage = "Give location";
+    this.refreshMsg = "";
+    this.locationDenied = false;
+  }
+
   displayLocationSupport() {
+    this.buttonMessage = "Try again";
+
     if (this.platform.FIREFOX) {
       console.log("Firefox detected");
       this.permsSupportUrl = "https://support.mozilla.org/en-US/kb/site-permissions-panel";
@@ -69,8 +106,4 @@ export class GeolocationComponent {
       console.log("Failed to find browser type");
     }
   }
-
-
-
-
 }

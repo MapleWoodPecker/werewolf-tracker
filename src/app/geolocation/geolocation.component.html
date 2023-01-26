@@ -2,9 +2,10 @@
 
 <div  style="text-align: center; margin: auto; width: 80%;">
     <h1>{{locationMessage}}</h1>
-    <div *ngIf="!locationApproved">
-        <button class="button-5" role="button" (click)="askLocation()" style="left:50%;">Give location</button>
-    </div>
+    <button class="button-5" role="button" (click)="askLocation()" style="left:50%;">{{buttonMessage}}</button>
+    <br>
+    <br>
+    <a href=""  (click)="clearLocation()">{{refreshMsg}}</a>
     <div *ngIf="locationDenied">
         <p>Unfortunately, you'll have to go in your browser settings if you wish to re-enable them</p>
         <a href="{{permsSupportUrl}}" target="_blank" *ngIf="permsSupportUrl">How to change permission settings on {{permsBrowserText}}</a>
