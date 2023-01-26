@@ -1,10 +1,32 @@
-<h1 style="text-align: center;">{{locationMessage}}</h1>    
 
-<div *ngIf="!locationDenial; else elseBlock">
-    <button (click)="getLocation()">Give location</button>
+
+<div  style="text-align: center; margin: auto; width: 80%;">
+    <h1>{{locationMessage}}</h1>
+    <div *ngIf="!locationDenial; else elseBlock">
+        <button  class="button-5" role="button" (click)="askLocation()" style="left:50%;">Give location</button>
+    </div>
+    <ng-template #elseBlock>
+        <p>Unfortunately, you'll have to go in your browser settings if you wish to re-enable them</p>
+        <a href="{{permsSupportUrl}}" target="_blank" *ngIf="permsSupportUrl">{{permsSupportText}}</a>
+        
+        <div *ngIf="engineIsBlink" style="display: flex; column-gap: 20px; justify-content: center;">
+            Here's how to do so on:
+            <span>
+                <a href="https://support.google.com/chrome/answer/114662" target="_blank">
+                    Chrome
+                </a>
+            </span>
+            <span>
+                <a href="https://www.groovypost.com/howto/enable-or-disable-site-permissions-in-microsoft-edge/" target="_blank">
+                    Edge
+                </a>
+            </span>
+            <span>
+                <a href="https://help.opera.com/en/latest/web-preferences/#location" target="_blank">
+                    Opera
+                </a>
+            </span>
+        </div>
+
+    </ng-template>
 </div>
-<ng-template #elseBlock>
-    <p style="text-align: center; margin: auto; width: 80%;">Unfortunately, you'll have to go in your browser settings if you wish to re-enable them:</p>
-    <a href="{{permsSupportUrl}}">{{permsSupportText}}</a>
-
-</ng-template>

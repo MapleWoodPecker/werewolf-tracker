@@ -1,3 +1,4 @@
+import { PlatformModule } from '@angular/cdk/platform';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -12,6 +13,7 @@ import { GeolocationComponent } from './geolocation/geolocation.component';
   ],
   imports: [
     BrowserModule,
+    PlatformModule,
     AppRoutingModule
   ],
   providers: [],
