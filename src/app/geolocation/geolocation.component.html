@@ -2,12 +2,12 @@
 
 <div  style="text-align: center; margin: auto; width: 80%;">
     <h1>{{locationMessage}}</h1>
-    <div *ngIf="!locationDenial; else elseBlock">
-        <button  class="button-5" role="button" (click)="askLocation()" style="left:50%;">Give location</button>
+    <div *ngIf="!locationApproved">
+        <button class="button-5" role="button" (click)="askLocation()" style="left:50%;">Give location</button>
     </div>
-    <ng-template #elseBlock>
+    <div *ngIf="locationDenied">
         <p>Unfortunately, you'll have to go in your browser settings if you wish to re-enable them</p>
-        <a href="{{permsSupportUrl}}" target="_blank" *ngIf="permsSupportUrl">{{permsSupportText}}</a>
+        <a href="{{permsSupportUrl}}" target="_blank" *ngIf="permsSupportUrl">How to change permission settings on {{permsBrowserText}}</a>
         
         <div *ngIf="engineIsBlink" style="display: flex; column-gap: 20px; justify-content: center;">
             Here's how to do so on:
@@ -27,6 +27,5 @@
                 </a>
             </span>
         </div>
-
-    </ng-template>
+    </div>
 </div>
