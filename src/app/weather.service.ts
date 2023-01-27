@@ -14,21 +14,16 @@ export class WeatherService {
 
   //Get api key from environment.ts
   private api_key: string = this.api_keys.weatherApiKey.toString();
-
-  //tap(_ => console.log('fetched weather')),
-  //catchError(this.handleError<DayWeather[]>('getWeather', [])),
   
   getWeather(latitude: number, longitude: number): Observable<WeatherData>{
 
     const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${latitude}%2C${longitude}/next30days?unitGroup=metric&include=days&elements=conditions,icon,moonrise,moonset,cloudcover,sunrise,sunset,moonphase,precip,precipprob,precipcover,preciptype,datetime&key=${this.api_key}&contentType=json`;
-
-    console.log(`Calling api with url ${url}`)
-    
+   
     const forecast = this.http.get<WeatherData>(url)
       .pipe(
         tap(_ => console.log('Successfully fetched weather')),
         map((data: WeatherData) => {
-          console.log("Amount of days fetched: " + data.days.length.toString())
+          console.log("Successfully fetched " + data.days.length.toString() + " days of forecast");
           return data;
         }),
         catchError(this.handleError<WeatherData>('getWeather'))

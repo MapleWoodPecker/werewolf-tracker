@@ -1,0 +1,21 @@
+<div style="margin: auto; width: 50%;">
+    <p>moonlight-display works! reminder: might be on mock data. also go back button. also animations? also logo clickable</p>
+    <p>Current location: yet to be implemented (need to implement google's geocoding api to find adress from coordinates)</p>
+    <p>Current time: {{date}} (Timezone : {{this.inputData.timezone}})</p>
+    <p>Current moonphase : {{currentmoonphase}}</p>
+    <br>
+    <h3>Days left before next full moon 🌕: {{daysleft}}</h3>
+    <p>Color of above number should be: {{daysleftcolor}}</p>
+    <br>
+    <p>Planned weather: {{filteredDays[1].conditions}}. img:{{filteredDays[1].icon}}</p>
+    <p>Cloud cover: {{filteredDays[1].cloudcover}}%. This decreases your chances of a werewolf encounter.</p>
+    <p>Chances of rain: {{filteredDays[1].precipprob}}%. This increases your chances of a werewolf encounter.</p>
+    <p>⚠️ Warning : the weather cloud cover can change quickly and the chances increase the farther you are from the next full moon. Come back to this website in {{daysleft-1}} days to double check.</p>
+    <br>
+    <h3>Knowing all this, your chances of encountering a werewolf are estimated at</h3>
+    <h1>{{probability}}%</h1>
+
+    <p>You will have to survive from {{filteredDays[1].sunset}} to {{filteredDays[1].sunrise}} (sunset and sunrise)</p>
+    <br><br><br>
+    <p>In a future version, this app will take into account light pollution.</p>
+</div>

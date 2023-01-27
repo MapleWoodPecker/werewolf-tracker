@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { GeolocationComponent } from './geolocation/geolocation.component';
 import { ForecastComponent } from './forecast/forecast.component';
 import { HomeComponent } from './home/home.component';
+import { MoonlightDisplayComponent } from './moonlight-display/moonlight-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GeolocationComponent,
     ForecastComponent,
-    HomeComponent
+    HomeComponent,
+    MoonlightDisplayComponent
   ],
   imports: [
     BrowserModule,

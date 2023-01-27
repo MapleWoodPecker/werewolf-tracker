@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { WeatherService } from '../weather.service';
 import { isEmpty } from 'rxjs';
-
+import { MockWeather } from 'src/mock/static-weather-data';
 @Component({
   selector: 'app-forecast',
   templateUrl: './forecast.component.html',
@@ -18,7 +18,8 @@ export class ForecastComponent {
   latitude: number = 51.4934;
   longitude: number = 0.0098;
 
-  days: WeatherData["days"] = [];
+  public weatherData: WeatherData | undefined;
+  public dataReceived: boolean = false;
 
   ngOnInit() {
     //get location from session storage
@@ -27,10 +28,13 @@ export class ForecastComponent {
       this.longitude = Number(sessionStorage.getItem('user_long'));
       console.log(`Successfully retrieved location from session storage: ${this.latitude}, ${this.longitude}`);
 
-      this.weatherApi.getWeather(this.latitude, this.longitude)
-      .subscribe(data => this.displayForecast(data));
+      // This is the real api data call
+      this.weatherApi.getWeather(this.latitude, this.longitude).subscribe(data => this.displayForecast(data));
 
-      console.log("Subscribed")
+      // This is a mock data call
+      //let mockData: WeatherData = JSON.parse(MockWeather.getData());
+      //this.displayForecast(mockData);
+
     }
     //if location not in session storage, display error and redirect to home page
     else {
@@ -41,10 +45,10 @@ export class ForecastComponent {
   }
 
   displayForecast(data: WeatherData): void {
-    this.days = data.days;
     //if data fetch was successful, display forecast
-    if (this.days.length > 0) {
-      
+    if (data.days.length > 0) {
+      this.weatherData = data;
+      this.dataReceived = true;
     }
     //else display error message
     else {

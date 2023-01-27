@@ -1,5 +1,10 @@
 export class MockWeather{
-    data: string = `
+
+  public static getData(): string{
+    return MockWeather.data;
+  }
+
+  public static data: string = `
         {
         "queryCost": 17,
         "latitude": 51.4934,
@@ -868,5 +873,5 @@ export class MockWeather{
           }
         ]
       }
-      `
+      `    
 }
